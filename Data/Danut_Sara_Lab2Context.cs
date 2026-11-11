@@ -9,6 +9,8 @@ namespace Danut_Sara_Lab2.Data
 {
     public class Danut_Sara_Lab2Context : DbContext
     {
+        public DbSet<Danut_Sara_Lab2.Models.BookCategory> BookCategory { get; set; } = default!;
+        public DbSet<Danut_Sara_Lab2.Models.Category> Category { get; set; } = default!;
         public Danut_Sara_Lab2Context(
             DbContextOptions<Danut_Sara_Lab2Context> options)
             : base(options)

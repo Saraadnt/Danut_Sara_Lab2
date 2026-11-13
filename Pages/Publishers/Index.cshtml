@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model Danut_Sara_Lab2.Pages.Publishers.IndexModel
 
 @{
@@ -14,16 +14,30 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Publisher Name</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publisher[0].PublisherName)
+            </th>
             <th></th>
         </tr>
     </thead>
+
     <tbody>
-        @foreach (var item in Model.Publisher)
+        @foreach (var item in Model.PublisherData.Publishers)
         {
-            <tr>
-                <td>@item.PublisherName</td>
+            string selectedRow = "";
+
+            if (item.ID == Model.PublisherID)
+            {
+                selectedRow = "table-success";
+            }
+
+            <tr class="@selectedRow">
                 <td>
+                    @Html.DisplayFor(modelItem => item.PublisherName)
+                </td>
+
+                <td>
+                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
@@ -32,3 +46,26 @@
         }
     </tbody>
 </table>
+
+@if (Model.PublisherData.Books != null)
+{
+    <h3>Books Edited by Selected Publisher</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.PublisherData.Books)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@(book.Authors?.FullName ?? "Autor necunoscut")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

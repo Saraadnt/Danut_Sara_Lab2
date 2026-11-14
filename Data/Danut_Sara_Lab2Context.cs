@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,11 @@ namespace Danut_Sara_Lab2.Data
         public DbSet<Publisher> Publisher { get; set; } = default!;
 
         public DbSet<Authors> Authors { get; set; } = default!;
+
+
+        public DbSet<Member> Member { get; set; } = default!;
+
+        public DbSet<Borrowing> Borrowing { get; set; } = default!;
+
     }
 }

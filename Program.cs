@@ -1,13 +1,27 @@
 using Microsoft.EntityFrameworkCore;
 using Danut_Sara_Lab2.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Danut_Sara_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Danut_Sara_Lab2Context' not found.");
 
 builder.Services.AddDbContext<Danut_Sara_Lab2Context>(options => options.UseSqlServer(connectionString));
 
+
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("Danut_Sara_Lab2Context")
+        ?? throw new InvalidOperationException(
+            "Connection string 'Danut_Sara_Lab2Context' not found.")));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+    options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<LibraryIdentityContext>();
+
 
 var app = builder.Build();
 
@@ -23,6 +37,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

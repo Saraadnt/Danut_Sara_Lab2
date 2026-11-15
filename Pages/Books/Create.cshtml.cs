@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Danut_Sara_Lab2.Pages.Books;
+
+[Authorize(Roles = "Admin")]
 
 public class CreateModel : BookCategoriesPageModel
 {
